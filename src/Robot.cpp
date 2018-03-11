@@ -264,6 +264,7 @@ void PowerUpRobot::DisabledPeriodic()
 
 void PowerUpRobot::AutonomousPeriodic()
 {
+	//waiting for fms values to be returned
 	if(FMSFetch()){
 	loopCount++;
 	DelayCounter++;
@@ -276,21 +277,6 @@ void PowerUpRobot::AutonomousPeriodic()
 	}
 	return;
 }
-/*
-// if we don't have enough time to test auto
-if(Starting_Position==1||Starting_Position==3){
-//go to null
-	if (loopCount < Time_Foward_ToNull) {//insert time
-			pDriveTrain->TankDrive(Speed_Drive_Auto,Speed_Drive_Auto);
-	}
-	else{
-	}
-	}
-}
-else{
-//do nothing
-}
-*/
 
 void PowerUpRobot::TeleopPeriodic()
 {
@@ -339,70 +325,64 @@ void PowerUpRobot::ShowDSValues()
 
 void PowerUpRobot::AutoSwitch(){
 	switch(Starting_Position){
-				case 1:					//LEFT Side
-					if(gameData[0]=='L'){
-						//put cube on switch
-						AutoCubeSide();
+		case 1:					//LEFT Side
+			if(gameData[0]=='L'){
+				//put cube on switch
+				AutoCubeSide();
+			}
+			else if(gameData[0]=='R'){
+				// go to null
+					if (loopCount < Time_Foward_ToNull) {
+						pDriveTrain->TankDrive(Speed_Drive_Auto,Speed_Drive_Auto);
 					}
-					else if(gameData[0]=='R'){
-						// go to null
-							if (loopCount < Time_Foward_ToNull) {
-								pDriveTrain->TankDrive(Speed_Drive_Auto,Speed_Drive_Auto);
-							}
-							else{
-
-								}
-								}
-								else{
-
-								}
-								break;
-				case 2:					//CENTER field
-					if(gameData[0]=='L'){
-						// go left
-						if (loopCount < Time_Turn_Center) {
-							pDriveTrain->TankDrive(-Speed_Drive_Auto,Speed_Drive_Auto);
-						}
-						else if(loopCount < Time_Foward_Center){
-						}
-						else{
+			}
+						break;
+		case 2:					//CENTER field
+			if(gameData[0]=='L'){
+				// go left
+				if (loopCount < Time_Turn_Center) {
+					pDriveTrain->TankDrive(-Speed_Drive_Auto,Speed_Drive_Auto);
+				}
+				else if(loopCount < Time_Foward_Center){
+					}
+				else{
+				AutoCubeCenter();
+				}
+				}
+				else if(gameData[0]=='R'){
+					// go right
+					if (loopCount < Time_Turn_Center) {
+						pDriveTrain->TankDrive(Speed_Drive_Auto,-Speed_Drive_Auto);
+					}
+					else if(loopCount < Time_Foward_Center){
+						pDriveTrain->TankDrive(Speed_Drive_Auto,Speed_Drive_Auto);
+					}
+					else{
 						AutoCubeCenter();
 						}
-						}
-						else if(gameData[0]=='R'){
-							// go right
-							if (loopCount < Time_Turn_Center) {
-								pDriveTrain->TankDrive(Speed_Drive_Auto,-Speed_Drive_Auto);
-							}
-							else if(loopCount < Time_Foward_Center){
-								pDriveTrain->TankDrive(Speed_Drive_Auto,Speed_Drive_Auto);
-							}
-							else{
-								AutoCubeCenter();
-								}
-							}
-							else{
+					}
+					else{
 
-							}
-							break;
-				case 3:					//RIGHT Side
-					if(gameData[0]=='L'){
-						//go to null
-						if (loopCount < Time_Foward_ToNull) {//insert time
-							pDriveTrain->TankDrive(Speed_Drive_Auto,Speed_Drive_Auto);
-						}
-						else{
-						}
-						}
-						else if(gameData[0]=='R'){
-							//put cube on switch
-							AutoCubeSide();
-						}
-						else{
+					}
+					break;
+		case 3:					//RIGHT Side
+			if(gameData[0]=='L'){
+				//go to null
+				if (loopCount < Time_Foward_ToNull) {//insert time
+					pDriveTrain->TankDrive(Speed_Drive_Auto,Speed_Drive_Auto);
+				}
+				else{
+				}
+				}
+				else if(gameData[0]=='R'){
+					//put cube on switch
+					AutoCubeSide();
+				}
+				else{
 
-						}
-						break;
-						}
+				}
+				break;
+				}
 	return;
 }
 
@@ -446,17 +426,17 @@ void PowerUpRobot::AutoCubeSide(){
 
 void PowerUpRobot::AutoCubeCenter(){
 	if(loopCount<Time_Elevator){
-				Stage1Start();
-				Stage2Start();
-				pElevator->Up2(Speed_Elevator_Auto);
+		Stage1Start();
+		Stage2Start();
+		pElevator->Up2(Speed_Elevator_Auto);
 	}
-			else{
-				pElevator->Stop();
-				Stage1Stop();
-				Stage2Stop();
-				AirOut();
-				pIntake->Out();
-			}
+	else{
+		pElevator->Stop();
+		Stage1Stop();
+		Stage2Stop();
+		AirOut();
+		pIntake->Out();
+	}
 	return;
 }
 
@@ -509,17 +489,17 @@ void PowerUpRobot::AirIn(){
 void PowerUpRobot::SolenoidUpdate(){
 	if(pAirIn->Get()){
 		if(!TempLastIntake){
-	if(IntakePiston){
-		AirOut();
-		IntakePiston=false;
-	}
-	else{
-		AirIn();
-		IntakePiston=true;
-	}
-	TempLastIntake=true;
-		}
-	}
+			if(IntakePiston){
+				AirOut();
+				IntakePiston=false;
+			}
+				else{
+					AirIn();
+					IntakePiston=true;
+				}
+			TempLastIntake=true;
+				}
+			}
 	else{
 		TempLastIntake=false;
 	}
@@ -529,21 +509,21 @@ void PowerUpRobot::SolenoidUpdate(){
 void   PowerUpRobot::RunElevator(){
 	//tolerance for Xbox-joystick
 	if(LeftY > Joystick_Tolerance || LeftY < -Joystick_Tolerance){
-			    pElevator->Up1(-LeftY);
-		}
+		pElevator->Up1(-LeftY);
+	}
 	else{
-				pElevator->Stop();
-				Stage1Stop();
+		pElevator->Stop();
+		Stage1Stop();
 	}
 	//Stage 2:
 	if(RightY > Joystick_Tolerance || RightY < -Joystick_Tolerance)
 	{
-				pElevator->Up2(-RightY);
-			}
+		pElevator->Up2(-RightY);
+	}
 	else{
-				pElevator->Stop2();
-				Stage2Stop();
-		}
+		pElevator->Stop2();
+		Stage2Stop();
+	}
 	StageUpdate();
 return;
 }
@@ -569,12 +549,12 @@ void PowerUpRobot::Stage2Start(){
 }
 
 void PowerUpRobot::StageUpdate(){
-			if(LeftY > Joystick_Tolerance || LeftY < -Joystick_Tolerance){
-				Stage2Start();
-			}
-			if(RightY > Joystick_Tolerance || RightY < -Joystick_Tolerance){
-				Stage1Start();
-			}
+	if(LeftY > Joystick_Tolerance || LeftY < -Joystick_Tolerance){
+		Stage2Start();
+	}
+	if(RightY > Joystick_Tolerance || RightY < -Joystick_Tolerance){
+		Stage1Start();
+	}
 }
 
 bool PowerUpRobot::FMSFetch(){
