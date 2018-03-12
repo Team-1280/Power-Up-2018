@@ -4,8 +4,7 @@
 // Created on: Jan 24, 2018
 //      Authors: Zach, Tyler
 // Advice to all future 1280 progrSammers: Don't take advice from the angry robot lady
-// Don't toucha my spaghett
-// kill yourself
+// Don't toucha my spaghet
 //------------------------------------------------------------------------------
 
 #include <iostream>
@@ -29,7 +28,7 @@ class PowerUpRobot : public IterativeRobot {
 
 	public:
 
-		PowerUpRobot();
+		 PowerUpRobot();
 		~PowerUpRobot();
 
 		void   RobotInit();
@@ -69,19 +68,19 @@ class PowerUpRobot : public IterativeRobot {
 		static const uint LEFT_REAR_MOTOR_CH	   =  2;
 		static const uint LEFT_INTAKE_MOTOR_CH	   =  6;
 		static const uint RIGHT_INTAKE_MOTOR_CH	   =  7;
-		static const uint CLIMBER_MOTOR1_CH		   =  4;
-		static const uint CLIMBER_MOTOR2_CH		   =  5;
+		static const uint CLIMBER_MOTOR1_CH	   =  4;
+		static const uint CLIMBER_MOTOR2_CH	   =  5;
 		static const uint ELEVATOR_MOTOR1_CH 	   =  8;
 		static const uint ELEVATOR_MOTOR2_CH	   =  9;
 
 		// roboRio Solenoid Channels
-		static const uint Compressor_CH 		   =  0;
-		static const uint Solenoid1a_CH			   =  0;
-		static const uint Solenoid2a_CH	   		   =  1;
-		static const uint Solenoid1b_CH			   =  2;
-		static const uint Solenoid2b_CH	   		   =  3;
-		static const uint Solenoid1c_CH			   =  4;
-		static const uint Solenoid2c_CH	   		   =  5;
+		static const uint Compressor_CH 	   =  0;
+		static const uint Solenoid1a_CH	           =  0;
+		static const uint Solenoid2a_CH	           =  1;
+		static const uint Solenoid1b_CH	           =  2;
+		static const uint Solenoid2b_CH	   	   =  3;
+		static const uint Solenoid1c_CH	           =  4;
+		static const uint Solenoid2c_CH	           =  5;
 
 //---------------------------------------------------------
 //AUTO Variables
