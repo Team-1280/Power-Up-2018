@@ -4,7 +4,6 @@
 // Created on: Jan 24, 2018
 //      Authors: Zach, Tyler
 // Advice to all future 1280 progrSammers: Don't take advice from the angry robot lady
-// Don't toucha my spaghet
 //------------------------------------------------------------------------------
 
 #include <iostream>
@@ -20,7 +19,6 @@
 #include "../Climber.h"
 #include "../Intake.h"
 #include "../Elevator.h"
-
 
 #define CONSOLE
 
@@ -45,59 +43,59 @@ class PowerUpRobot : public IterativeRobot {
 //Robot Constants
 //---------------------------------------------------------
 
-		static const uint JS_PORT_LEFT             =  0;
-		static const uint JS_PORT_RIGHT			   =  1;
-		static const uint CCI_PORT1        	       =  2;
+		static const uint JS_PORT_LEFT         		    =  0;
+		static const uint JS_PORT_RIGHT			    =  1;
+		static const uint CCI_PORT1        	  	    =  2;
 
 		// Joystick Button (right joystick)
-		static const uint CAMERA_LIGHT_SW_CH       =  1;
+		static const uint CAMERA_LIGHT_SW_CH       	    =  1;
 
 		// Driver Station CCI1 Channels (Uses joystick button references)
-		static const uint Down_SW_CH		 	   =  6;
-		static const uint Climber_SW_CH			   =  5;
-		static const uint AIROUT_SW_CH 			   =  2;
-		static const uint Elevator1_SW_CH		   =  1;
-		static const uint Elevator2_SW_CH		   =  5;
-		static const uint Intake_SW_CH		  	   =  3;
-		static const uint Outtake_SW_CH		   	   =  2;
+		static const uint Down_SW_CH		 	    =  6;
+		static const uint Climber_SW_CH			    =  5;
+		static const uint AIROUT_SW_CH 			    =  2;
+		static const uint Elevator1_SW_CH		    =  1;
+		static const uint Elevator2_SW_CH		    =  5;
+		static const uint Intake_SW_CH		  	    =  3;
+		static const uint Outtake_SW_CH		   	    =  2;
 
 		// roboRio PWM Channels (PWM = Pulse width modulation)
-		static const uint RIGHT_FRONT_MOTOR_CH	   =  0;
-		static const uint RIGHT_REAR_MOTOR_CH      =  1;
-		static const uint LEFT_FRONT_MOTOR_CH	   =  3;
-		static const uint LEFT_REAR_MOTOR_CH	   =  2;
-		static const uint LEFT_INTAKE_MOTOR_CH	   =  6;
-		static const uint RIGHT_INTAKE_MOTOR_CH	   =  7;
-		static const uint CLIMBER_MOTOR1_CH	   =  4;
-		static const uint CLIMBER_MOTOR2_CH	   =  5;
-		static const uint ELEVATOR_MOTOR1_CH 	   =  8;
-		static const uint ELEVATOR_MOTOR2_CH	   =  9;
+		static const uint RIGHT_FRONT_MOTOR_CH	  	   =  0;
+		static const uint RIGHT_REAR_MOTOR_CH      	   =  1;
+		static const uint LEFT_FRONT_MOTOR_CH	           =  3;
+		static const uint LEFT_REAR_MOTOR_CH	   	   =  2;
+		static const uint LEFT_INTAKE_MOTOR_CH	  	   =  6;
+		static const uint RIGHT_INTAKE_MOTOR_CH	  	   =  7;
+		static const uint CLIMBER_MOTOR1_CH	  	   =  4;
+		static const uint CLIMBER_MOTOR2_CH	  	   =  5;
+		static const uint ELEVATOR_MOTOR1_CH 	           =  8;
+		static const uint ELEVATOR_MOTOR2_CH	           =  9;
 
 		// roboRio Solenoid Channels
-		static const uint Compressor_CH 	   =  0;
-		static const uint Solenoid1a_CH	           =  0;
-		static const uint Solenoid2a_CH	           =  1;
-		static const uint Solenoid1b_CH	           =  2;
-		static const uint Solenoid2b_CH	   	   =  3;
-		static const uint Solenoid1c_CH	           =  4;
-		static const uint Solenoid2c_CH	           =  5;
+		static const uint Compressor_CH 		   =  0;
+		static const uint Solenoid1a_CH	        	   =  0;
+		static const uint Solenoid2a_CH	          	   =  1;
+		static const uint Solenoid1b_CH	       	           =  2;
+		static const uint Solenoid2b_CH	   	  	   =  3;
+		static const uint Solenoid1c_CH	                   =  4;
+		static const uint Solenoid2c_CH	           	   =  5;
 
 //---------------------------------------------------------
 //AUTO Variables
 //---------------------------------------------------------
 
 		// Auto Drive speed
-		const float Speed_Drive_Auto    	       =  0.5;
-		const float Speed_Elevator_Auto		       =  0.5;
+		const float Speed_Drive_Auto    	         =  0.5;
+		const float Speed_Elevator_Auto		         =  0.5;
 
 		// Auto Drive Time
-		static const uint  Time_Foward_ToNull      =  500;
-		static const uint  Time_Turn_Center	       =  210;
-		static const uint  Time_Turn_Side          =  230;
-		static const uint  Time_Foward_Side1	   =  14/27 * Time_Foward_ToNull;
-		static const uint  Time_Foward_Side2	   =  Time_Turn_Side   + Time_Foward_Side1  + 1.1/27  * Time_Foward_ToNull;
-		static const uint  Time_Foward_Center      =  Time_Turn_Center                      + 10.9/27 * Time_Foward_ToNull;
-		static const uint  Time_Elevator		   =  250;
+		static const uint  Time_Foward_ToNull           =  500;
+		static const uint  Time_Turn_Center	        =  210;
+		static const uint  Time_Turn_Side               =  230;
+		static const uint  Time_Foward_Side1	        =  14/27 * Time_Foward_ToNull;
+		static const uint  Time_Foward_Side2	        =  Time_Turn_Side   + Time_Foward_Side1  + 1.1/27  * Time_Foward_ToNull;
+		static const uint  Time_Foward_Center           =  Time_Turn_Center                      + 10.9/27 * Time_Foward_ToNull;
+		static const uint  Time_Elevator	        =  250;
 
 		//Starting positions
 		std::string gameData;
@@ -110,12 +108,12 @@ class PowerUpRobot : public IterativeRobot {
 		//Joystick pointers
 		Joystick		 *pDriveStickLeft;
 		Joystick		 *pDriveStickRight;
-		Joystick         *pXBox;
+		Joystick                 *pXBox;
 
 		//joystick button pointers
-		JoystickButton 	 *pClimbButton;
-		JoystickButton   *pDownButton;
-		JoystickButton   *pAirIn;
+		JoystickButton 	 	*pClimbButton;
+		JoystickButton   	*pDownButton;
+		JoystickButton   	*pAirIn;
 
 		//Pointers for robot mechanisms
 		RobotDrive		*pDriveTrain;
@@ -185,34 +183,34 @@ PowerUpRobot::PowerUpRobot()
 //joysticks & XBox
 	pDriveStickLeft		   = new Joystick(JS_PORT_LEFT);
 	pDriveStickRight	   = new Joystick(JS_PORT_RIGHT);
-	pXBox                  = new Joystick(CCI_PORT1);
+	pXBox               	   = new Joystick(CCI_PORT1);
 
 	pClimbButton 		   = new JoystickButton(pXBox,Down_SW_CH);
 	pDownButton 		   = new JoystickButton(pXBox,Climber_SW_CH);
-	pAirIn				   = new JoystickButton(pXBox,AIROUT_SW_CH);
+	pAirIn		           = new JoystickButton(pXBox,AIROUT_SW_CH);
 	pCompressor 		   = new Compressor(Compressor_CH);
 
 //Mechanism pointer initialization
 	pDriveTrain		       = new RobotDrive(LEFT_FRONT_MOTOR_CH,LEFT_REAR_MOTOR_CH,RIGHT_FRONT_MOTOR_CH, RIGHT_REAR_MOTOR_CH);
 	pClimber		       = new Climber(CLIMBER_MOTOR1_CH, CLIMBER_MOTOR2_CH);
-	pIntake 			   = new Intake(LEFT_INTAKE_MOTOR_CH, RIGHT_INTAKE_MOTOR_CH);
-	pElevator 			   = new Elevator(ELEVATOR_MOTOR1_CH, ELEVATOR_MOTOR2_CH);
+	pIntake 		       = new Intake(LEFT_INTAKE_MOTOR_CH, RIGHT_INTAKE_MOTOR_CH);
+	pElevator 		       = new Elevator(ELEVATOR_MOTOR1_CH, ELEVATOR_MOTOR2_CH);
 
 //Variable initializations
 	loopCount      		   = 0;
 	DelayCounter		   = 0;
-	IntakePiston           = true;
+	IntakePiston         	   = true;
 	TempLastIntake 		   = false;
 
-	rightDriveSpeed        = 0.0;
-	leftDriveSpeed         = 0.0;
+	rightDriveSpeed        	   = 0.0;
+	leftDriveSpeed        	   = 0.0;
 
-	LeftY				   = 0.0;
-	RightY				   = 0.0;
+	LeftY		           = 0.0;
+	RightY		           = 0.0;
 	LeftTrigger  		   = 0.0;
 	RightTrigger		   = 0.0;
 
-	Starting_Position      = 1;
+	Starting_Position          = 1;
 	return;
 }
 
@@ -229,7 +227,7 @@ void PowerUpRobot::RobotInit()
 
 void PowerUpRobot::DisabledInit()
 {
-	loopCount  = 0;
+	loopCount     = 0;
 	AirOut();
 	return;
 }
@@ -283,20 +281,19 @@ void PowerUpRobot::TeleopPeriodic()
 	loopCount++;
 	DelayCounter++;
 	GetDriverStationInput();
-
 	pDriveTrain->TankDrive(-leftDriveSpeed,-rightDriveSpeed);
-    RunClimber();
-    RunIntake();
-    RunElevator();
-    SolenoidUpdate();
+        RunClimber();
+        RunIntake();
+        RunElevator();
+        SolenoidUpdate();
 	return;
 }
 
 void PowerUpRobot::GetDriverStationInput()
 {
 //Joystick Input
-	rightDriveSpeed		=  pDriveStickRight->GetY();
-	leftDriveSpeed		=  pDriveStickLeft->GetY();
+	rightDriveSpeed	    =  pDriveStickRight->GetY();
+	leftDriveSpeed	    =  pDriveStickLeft->GetY();
 
 //Xbox Input
 	LeftY               = pXBox->GetRawAxis(Elevator1_SW_CH);
