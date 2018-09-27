@@ -16,9 +16,9 @@
 #include <SmartDashboard/SendableChooser.h>
 #include <SmartDashboard/SmartDashboard.h>
 #include <DriverStation.h>
-#include <Climber.h>
-#include <Intake.h>
-#include <Elevator.h>
+#include "../Climber.h"
+#include "../Intake.h"
+#include "../Elevator.h"
 
 #define CONSOLE
 
@@ -55,7 +55,7 @@ class PowerUpRobot : public IterativeRobot {
 		static const uint Climber_SW_CH			       =  5;
 		static const uint AIROUT_SW_CH 			       =  2;
 		static const uint Elevator1_SW_CH		       =  1;
-		static const uint Elevator2_SW_CH		       =  5;
+		static const uint Elevator2_SW_CH		       =  4;
 		static const uint Intake_SW_CH		  	       =  3;
 		static const uint Outtake_SW_CH		   	       =  2;
 
@@ -120,7 +120,7 @@ class PowerUpRobot : public IterativeRobot {
 		//Objects for double solenoids
 		frc::DoubleSolenoid Solenoid1  {SOLENOID_CH_1A, SOLENOID_CH_2A};  //Intake
 		frc::DoubleSolenoid Solenoid2  {SOLENOID_CH_1B, SOLENOID_CH_2B};  //Elevator Stage 1 bike stopper
-		frc::DoubleSolenoid Solenoid3  {SOLENOID_CH_1C, SOLENOID_CH_2C};  //Elevator Stage 2 bike stopper
+		frc::DoubleSolenoid Solenoid3  {SOLENOID_CH_1C, SOLENOID_CH_2C};  //Intake Lower System
 
 		// variables to track counts/states
 		uint   loopCount;
@@ -189,17 +189,17 @@ PowerUpRobot::PowerUpRobot()
 
 //Mechanism pointer initialization
 	pDriveTrain		       = new RobotDrive(LEFT_FRONT_MOTOR_CH,LEFT_REAR_MOTOR_CH,RIGHT_FRONT_MOTOR_CH, RIGHT_REAR_MOTOR_CH);
-	pClimber		       = new Climber(CLIMBER_MOTOR1_CH, CLIMBER_MOTOR2_CH);
+	pClimber		       = new Climber(CLIMBER_MOTOR1_CH);
 	pIntake 		       = new Intake(LEFT_INTAKE_MOTOR_CH, RIGHT_INTAKE_MOTOR_CH);
 	pElevator 		       = new Elevator(ELEVATOR_MOTOR1_CH, ELEVATOR_MOTOR2_CH);
 
 //Variable initializations
 	loopCount      		   = 0;
 	DelayCounter		   = 0;
-	IntakePiston               = true;
-	TempLastIntake 	           = false;
+	IntakePiston           = true;
+	TempLastIntake 	       = false;
 
-	rightDriveSpeed            = 0.0;
+	rightDriveSpeed        = 0.0;
 	leftDriveSpeed    	   = 0.0;
 
 	LeftY		           = 0.0;
@@ -207,7 +207,7 @@ PowerUpRobot::PowerUpRobot()
 	LeftTrigger  		   = 0.0;
 	RightTrigger		   = 0.0;
 
-	Starting_Position          = 1;
+	Starting_Position      = 1;
 }
 
 PowerUpRobot::~PowerUpRobot()
@@ -276,7 +276,7 @@ void PowerUpRobot::TeleopPeriodic()
 	loopCount++;
 	DelayCounter++;
 	GetDriverStationInput();
-	pDriveTrain->TankDrive(-leftDriveSpeed,-rightDriveSpeed);
+	pDriveTrain->TankDrive(leftDriveSpeed,rightDriveSpeed);
 
     RunClimber();
     RunIntake();
@@ -288,8 +288,8 @@ void PowerUpRobot::TeleopPeriodic()
 void PowerUpRobot::GetDriverStationInput()
 {
 //Joystick Input
-	rightDriveSpeed	    =  pDriveStickRight->GetY();
-	leftDriveSpeed	    =  pDriveStickLeft->GetY();
+	rightDriveSpeed	    =  -1*pDriveStickRight->GetY();//Inverted direction to correct mistake
+	leftDriveSpeed	    =  -1*pDriveStickLeft->GetY();//Inverted direction to correct mistake
 
 //Xbox Input
 	LeftY               = pXBox->GetRawAxis(Elevator1_SW_CH);
@@ -366,10 +366,12 @@ void PowerUpRobot::SolenoidUpdate(){
 			IntakePiston = !IntakePiston;
 			TempLastIntake=true;
 	}
-	else{
-		TempLastIntake = false;
+	else if(!pAirIn->Get()){//Changed to account for button not being pressed
+		TempLastIntake=false;
 	}
-
+	/*else{
+		TempLastIntake = false;
+	}*/
 }
 
 void   PowerUpRobot::RunElevator(){
